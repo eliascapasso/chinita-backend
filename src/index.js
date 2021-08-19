@@ -34,11 +34,11 @@ app.post("/api/checkout", (req, res) => {
     auto_return: "approved",
     payer: {
       name: req.body.customer.firstname,
-      surname: req.body.customer.lasttname,
+      surname: req.body.customer.lastname,
       email: req.body.customer.email,
       address: {
         street_name:
-          req.body.customer.adress1,
+          req.body.customer.address1,
       },
     },
     shipments: {
@@ -67,6 +67,7 @@ app.post("/api/checkout", (req, res) => {
     .create(preference)
     .then(function (response) {
       res.set("Content-Type", "text/html");
+      res.set("Content-Type", "application/json");
       res.send(JSON.stringify(response.body.init_point));
     })
     .catch(function (error) {
