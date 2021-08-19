@@ -26,38 +26,37 @@ app.post("/api/checkout", (req, res) => {
   console.log("REQUEST", req.body);
 
   let preference = {
-    // back_urls: {
-    //   success:
-    //     "https://tienda-online-base.web.app:4200/order-complete/complete",
-    //   failure: "https://tienda-online-base.web.app:4200/inicio",
-    //   pending: "https://tienda-online-base.web.app:4200/order-complete/pending",
-    // },
-    // auto_return: "approved",
-    // payer: {
-    //   name: req.body.customer.firstname,
-    //   surname: req.body.customer.lastname,
-    //   email: req.body.customer.email,
-    //   address: {
-    //     street_name:
-    //       req.body.customer.address1,
-    //   },
-    // },
-    // shipments: {
-    //   cost: parse(req.body.shippingCost),
-    //   mode: "not_specified",
-    // },
-    // statement_descriptor: "TIENDA_VIRTUAL",
+    back_urls: {
+      success:
+        "https://tienda-online-base.web.app:4200/order-complete/complete",
+      failure: "https://tienda-online-base.web.app:4200/inicio",
+      pending: "https://tienda-online-base.web.app:4200/order-complete/pending",
+    },
+    //auto_return: "approved",
+    payer: {
+      name: req.body.customer.firstname,
+      surname: req.body.customer.lastname,
+      email: req.body.customer.email,
+      address: {
+        street_name: req.body.customer.address1,
+      },
+    },
+    shipments: {
+      cost: parse(req.body.shippingCost),
+      mode: "not_specified",
+    },
+    statement_descriptor: "TIENDA_VIRTUAL",
     items: [],
   };
 
   for (let i = 0; i < req.body.items.length; i++) {
     let item = {
-      //id: req.body.items[i].product.id,
+      id: req.body.items[i].product.id,
       title: req.body.items[i].product.name,
-      //description: req.body.items[i].product.description,
+      description: req.body.items[i].product.description,
       unit_price: req.body.items[i].product.price,
       quantity: req.body.items[i].amount,
-      //currency_id: "ARS",
+      currency_id: "ARS",
     };
     preference.items.push(item);
   }
@@ -73,7 +72,9 @@ app.post("/api/checkout", (req, res) => {
       res.send(JSON.stringify(response.body.init_point));
     })
     .catch(function (error) {
+      console.log("Hubo un error al intentar pagar");
       console.log(error);
+      console.log(error.message);
     });
 });
 
