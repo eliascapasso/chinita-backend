@@ -26,7 +26,8 @@ app.post("/api/checkout", (req, res) => {
   console.log(req.body);
   let preference = {
     back_urls: {
-      success: "https://tienda-online-base.web.app:4200/order-complete/complete",
+      success:
+        "https://tienda-online-base.web.app:4200/order-complete/complete",
       failure: "https://tienda-online-base.web.app:4200/inicio",
       pending: "https://tienda-online-base.web.app:4200/order-complete/pending",
     },
@@ -37,14 +38,14 @@ app.post("/api/checkout", (req, res) => {
       email: req.body.customer.email,
       address: {
         street_name:
-          req.body.customer.adress1 + " " + req.body.customer.adress2,
+          req.body.customer.adress1,
       },
     },
     shipments: {
       cost: parse(req.body.shippingCost),
       mode: "not_specified",
     },
-    statement_descriptor: "COMPRA_TIENDA_VIRTUAL",
+    statement_descriptor: "TIENDA_VIRTUAL",
     items: [],
   };
 
