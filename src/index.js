@@ -52,12 +52,12 @@ app.post("/api/checkout", (req, res) => {
 
   for (let i = 0; i < req.body.items.length; i++) {
     let item = {
-      id: req.body.items[i].product.id,
+      //id: req.body.items[i].product.id,
       title: req.body.items[i].product.name,
-      description: req.body.items[i].product.description,
+      //description: req.body.items[i].product.description,
       unit_price: req.body.items[i].product.price,
       quantity: req.body.items[i].amount,
-      currency_id: "ARS",
+      //currency_id: "ARS",
     };
     preference.items.push(item);
   }
