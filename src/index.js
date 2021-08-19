@@ -75,6 +75,9 @@ app.post("/api/checkout", (req, res) => {
       console.log("Hubo un error al intentar pagar");
       console.log(error);
       console.log(error.message);
+
+      res.set("Content-Type", "application/json");
+      res.send(JSON.stringify(error.message));
     });
 });
 
