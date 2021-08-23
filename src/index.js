@@ -21,6 +21,13 @@ mercadopago.configure({
     "APP_USR-6410586645251716-081310-931fec56178dcba5529ae799e8a2be91-807106888",
 });
 
+app.get("/api/port", (req, res) => {
+  console.log("PORT", app.get("port"));
+  res.set("Content-Type", "text/html");
+  res.set("Content-Type", "application/json");
+  res.send(JSON.stringify(app.get("port")));
+});
+
 //routes
 app.post("/api/checkout", (req, res) => {
   console.log("REQUEST", req.body);
@@ -57,7 +64,7 @@ app.post("/api/checkout", (req, res) => {
       unit_price: req.body.items[i].product.price,
       quantity: req.body.items[i].amount,
       currency_id: "ARS",
-      picture_url: req.body.items[i].product.imageURLs[0]
+      picture_url: req.body.items[i].product.imageURLs[0],
     };
     preference.items.push(item);
   }
