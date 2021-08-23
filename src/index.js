@@ -4,8 +4,7 @@ const morgan = require("morgan");
 const cors = require("cors");
 
 //Settings
-// app.set("port", process.env.PORT || 3000);
-app.set("port", 3000);
+app.set("port", process.env.PORT || 3000);
 
 //Middleware
 const corsOptions = { origin: "*" };
