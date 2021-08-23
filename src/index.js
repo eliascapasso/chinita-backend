@@ -4,7 +4,8 @@ const morgan = require("morgan");
 const cors = require("cors");
 
 //Settings
-app.set("port", process.env.PORT || 3000);
+// app.set("port", process.env.PORT || 3000);
+app.set("port", 3000);
 
 //Middleware
 const corsOptions = { origin: "*" };
@@ -57,6 +58,7 @@ app.post("/api/checkout", (req, res) => {
       unit_price: req.body.items[i].product.price,
       quantity: req.body.items[i].amount,
       currency_id: "ARS",
+      picture_url: req.body.items[i].product.imageURLs[0]
     };
     preference.items.push(item);
   }
