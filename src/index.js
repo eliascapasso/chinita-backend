@@ -28,6 +28,13 @@ app.get("/api/port", (req, res) => {
   res.send(JSON.stringify(app.get("port")));
 });
 
+app.get("/api/checkout", (req, res) => {
+  console.log("CHECKOUT OK!");
+  res.set("Content-Type", "text/html");
+  res.set("Content-Type", "application/json");
+  res.send(JSON.stringify("CHECKOUT OK!"));
+});
+
 //routes
 app.post("/api/checkout", (req, res) => {
   console.log("REQUEST", req.body);
