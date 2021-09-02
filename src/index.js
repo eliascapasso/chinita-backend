@@ -108,3 +108,32 @@ function parse(x) {
   }
   return parsed;
 }
+
+///// EMAIL ///////
+const nodemailer = require("nodemailer");
+
+app.post("/api/send-email", (req, res) => {
+  var transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true, // true for 465, false for other ports
+    auth: {
+      user: "capassoelias@gmail.com", // generated ethereal user
+      pass: "qamuldedygvfggsl", // generated ethereal password
+    },
+  });
+
+  transporter.sendMail({
+    from: '"Tienda virtual 👻" <capassoelias@gmail.com>', // sender address
+    to: "capassoelias@gmail.com", // list of receivers
+    subject: "Nueva orden ✔", // Subject line
+    html: "Recibiste una nueva orden!! <br><br><b>Ingresá al siguiente enlace para ver todas tus ordenes: </b> <a href='http://chinita.com.ar/account/orders'>CLICK AQUI</a>", // html body
+  }, (error, info) => {
+    if(error){
+      res.status(500).send(error.message);
+    }else{
+      console.log("Email enviado!");
+      res.send(true);
+    }
+  });
+});
