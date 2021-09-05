@@ -18,7 +18,7 @@ const mercadopago = require("mercadopago");
 // Agrega credenciales
 mercadopago.configure({
   access_token:
-    "APP_USR-6410586645251716-081310-931fec56178dcba5529ae799e8a2be91-807106888",
+    "APP_USR-8845973082199208-083011-c6a6d3d2ca60fae951fa82e357043551-213773639",
 });
 
 app.get("/api/port", (req, res) => {
@@ -125,8 +125,8 @@ app.post("/api/send-email", (req, res) => {
 
   transporter.sendMail(
     {
-      from: '"Tienda virtual 👻" <capassoelias@gmail.com>', // sender address
-      to: "capassoelias@gmail.com", // list of receivers
+      from: '"Tienda virtual 👻" <chinita.desarrollo@gmail.com>', // sender address
+      to: "capassoelias@gmail.com, elias_capasso@live.com", // list of receivers
       subject: "Nueva compra recibida ✔", // Subject line
       html: `<!doctype html>
       <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
