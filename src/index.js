@@ -118,8 +118,8 @@ app.post("/api/send-email", (req, res) => {
     port: 465,
     secure: true, // true for 465, false for other ports
     auth: {
-      user: "capassoelias@gmail.com", // generated ethereal user
-      pass: "qamuldedygvfggsl", // generated ethereal password
+      user: "chinita.desarrollo@gmail.com", // generated ethereal user
+      pass: "hyxxxubshtrndrep", // generated ethereal password
     },
   });
 
