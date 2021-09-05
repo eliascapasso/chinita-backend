@@ -123,17 +123,35 @@ app.post("/api/send-email", (req, res) => {
     },
   });
 
-  transporter.sendMail({
-    from: '"Tienda virtual 👻" <capassoelias@gmail.com>', // sender address
-    to: "capassoelias@gmail.com", // list of receivers
-    subject: "Nueva orden ✔", // Subject line
-    html: "Recibiste una nueva orden!! <br><br><b>Ingresá al siguiente enlace para ver todas tus ordenes: </b> <a href='http://chinita.com.ar/account/orders'>CLICK AQUI</a>", // html body
-  }, (error, info) => {
-    if(error){
-      res.status(500).send(error.message);
-    }else{
-      console.log("Email enviado!");
-      res.send(true);
+  transporter.sendMail(
+    {
+      from: '"Tienda virtual 👻" <capassoelias@gmail.com>', // sender address
+      to: "capassoelias@gmail.com", // list of receivers
+      subject: "Nueva orden ✔", // Subject line
+      html: `<h2>Recibiste una nueva orden!</h2>
+            <br><br>
+            <h3>Datos de contacto:</h3>
+            <br>
+            <ul> 
+              <li> Nombre y apellido: ${req.body.order.customer.lastname}, ${req.body.order.customer.firstname} </li> 
+              <li> Dirección: ${req.body.order.customer.address1} </li>
+              <li> País: ${req.body.order.customer.city} </li>
+              <li> Ciudad: ${req.body.order.customer.city} </li>
+              <li> Código postal: ${req.body.order.customer.zip} </li>
+              <li> Email: ${req.body.order.customer.email} </li>
+              <li> Teléfono: ${req.body.order.customer.phone} </li>
+            </ul>
+            <br><br>
+            <b>Ingresá al siguiente enlace para ver todas tus ordenes: </b> 
+            <a href='http://chinita.com.ar/account/orders'>CLICK AQUI</a>`, // html body
+    },
+    (error, info) => {
+      if (error) {
+        res.status(500).send(error.message);
+      } else {
+        console.log("Email enviado!");
+        res.send(true);
+      }
     }
-  });
+  );
 });
