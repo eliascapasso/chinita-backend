@@ -127,7 +127,7 @@ app.post("/api/send-email", (req, res) => {
     {
       from: '"Tienda virtual 👻" <capassoelias@gmail.com>', // sender address
       to: "capassoelias@gmail.com", // list of receivers
-      subject: "Nueva orden recibida ✔", // Subject line
+      subject: "Nueva compra recibida ✔", // Subject line
       html: `<!doctype html>
       <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
       <head>
@@ -246,7 +246,7 @@ app.post("/api/send-email", (req, res) => {
                                           <tr>
                                               <td align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;">
                                                   <div style="font-family:'Helvetica Neue',Arial,sans-serif;font-size:24px;font-weight:bold;line-height:22px;text-align:center;color:#525252;">
-                                                      Recibiste una nueva orden
+                                                      Recibiste una nueva compra
                                                   </div>
                                               </td>
                                           </tr>
