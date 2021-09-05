@@ -127,23 +127,208 @@ app.post("/api/send-email", (req, res) => {
     {
       from: '"Tienda virtual 👻" <capassoelias@gmail.com>', // sender address
       to: "capassoelias@gmail.com", // list of receivers
-      subject: "Nueva orden ✔", // Subject line
-      html: `<h2>Recibiste una nueva orden!</h2>
-            <br><br>
-            <h3>Datos de contacto:</h3>
-            <br>
-            <ul> 
-              <li> Nombre y apellido: ${req.body.order.customer.lastname}, ${req.body.order.customer.firstname} </li> 
-              <li> Dirección: ${req.body.order.customer.address1} </li>
-              <li> País: ${req.body.order.customer.city} </li>
-              <li> Ciudad: ${req.body.order.customer.city} </li>
-              <li> Código postal: ${req.body.order.customer.zip} </li>
-              <li> Email: ${req.body.order.customer.email} </li>
-              <li> Teléfono: ${req.body.order.customer.phone} </li>
-            </ul>
-            <br><br>
-            <b>Ingresá al siguiente enlace para ver todas tus ordenes: </b> 
-            <a href='http://chinita.com.ar/account/orders'>CLICK AQUI</a>`, // html body
+      subject: "Nueva orden recibida ✔", // Subject line
+      html: `<!doctype html>
+      <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+      <head>
+          <title>
+          </title>
+          <meta http-equiv="X-UA-Compatible" content="IE=edge">
+          <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+          <style type="text/css">
+              #outlook a {
+                  padding: 0;
+              }
+      
+              .ReadMsgBody {
+                  width: 100%;
+              }
+      
+              .ExternalClass {
+                  width: 100%;
+              }
+      
+              .ExternalClass * {
+                  line-height: 100%;
+              }
+      
+              body {
+                  margin: 0;
+                  padding: 0;
+                  -webkit-text-size-adjust: 100%;
+                  -ms-text-size-adjust: 100%;
+              }
+      
+              table,
+              td {
+                  border-collapse: collapse;
+                  mso-table-lspace: 0pt;
+                  mso-table-rspace: 0pt;
+              }
+      
+              img {
+                  border: 0;
+                  height: auto;
+                  line-height: 100%;
+                  outline: none;
+                  text-decoration: none;
+                  -ms-interpolation-mode: bicubic;
+              }
+      
+              p {
+                  display: block;
+                  margin: 13px 0;
+              }
+          </style>
+          <style type="text/css">
+              @media only screen and (max-width:480px) {
+                  @-ms-viewport {
+                      width: 320px;
+                  }
+                  @viewport {
+                      width: 320px;
+                  }
+              }
+          </style>
+          <style type="text/css">
+              @media only screen and (min-width:480px) {
+                  .mj-column-per-100 {
+                      width: 100% !important;
+                  }
+              }
+          </style>
+          <style type="text/css">
+          </style>
+      </head>
+      <body style="background-color:#f9f9f9;">
+          <div style="background-color:#f9f9f9;">
+              <div style="background:#f9f9f9;background-color:#f9f9f9;Margin:0px auto;max-width:600px;">
+                  <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#f9f9f9;background-color:#f9f9f9;width:100%;">
+                      <tbody>
+                          <tr>
+                              <td style="border-bottom:#333957 solid 5px;direction:ltr;font-size:0px;padding:20px 0;text-align:center;vertical-align:top;">
+                              
+                              </td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+              <div style="background:#fff;background-color:#fff;Margin:0px auto;max-width:600px;">
+      
+                  <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#fff;background-color:#fff;width:100%;">
+                      <tbody>
+                          <tr>
+                              <td style="border:#dddddd solid 1px;border-top:0px;direction:ltr;font-size:0px;padding:20px 0;text-align:center;vertical-align:top;">
+                                 
+                                  <div class="mj-column-per-100 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:bottom;width:100%;">
+      
+                                      <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:bottom;" width="100%">
+      
+                                          <tr>
+                                              <td align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+      
+                                                  <!-- <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
+                                                      <tbody>
+                                                          <tr>
+                                                              <td style="width:64px;">
+      
+                                                                  <img height="auto" src="./img/logo.png" style="border:0;display:block;outline:none;text-decoration:none;width:100%;" width="64" />
+      
+                                                              </td>
+                                                          </tr>
+                                                      </tbody>
+                                                  </table> -->
+      
+                                              </td>
+                                          </tr>
+      
+                                          <tr>
+                                              <td align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                                                  <div style="font-family:'Helvetica Neue',Arial,sans-serif;font-size:24px;font-weight:bold;line-height:22px;text-align:center;color:#525252;">
+                                                      Recibiste una nueva orden
+                                                  </div>
+                                              </td>
+                                          </tr>
+      
+                                          <tr>
+                                              <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+      
+                                                  <table 0="[object Object]" 1="[object Object]" 2="[object Object]" border="0" style="cellspacing:0;color:#000;font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;line-height:22px;table-layout:auto;width:100%;">
+                                                      <tr style="border-bottom:1px solid #ecedee;text-align:left;">
+                                                          <th style="padding: 0 15px 10px 0;">Datos del cliente</th>
+                                                          <th style="padding: 0 15px;"></th>
+                                                      </tr>
+                                                      <tr>
+                                                          <td style="padding: 5px 15px 5px 0;">Apellido(s)</td>
+                                                          <td style="padding: 0 15px;">${req.body.order.customer.lastname}</td>
+                                                      </tr>
+                                                      <tr>
+                                                          <td style="padding: 5px 15px 5px 0;">Nombre(s)</td>
+                                                          <td style="padding: 0 15px;">${req.body.order.customer.firstname}</td>
+                                                      </tr>
+                                                      <tr>
+                                                          <td style="padding: 0 15px 5px 0;">Dirección</td>
+                                                          <td style="padding: 0 15px;">${req.body.order.customer.address1}</td>
+                                                      </tr>
+                                                      <tr>
+                                                          <td style="padding: 0 15px 5px 0;">Ciudad</td>
+                                                          <td style="padding: 0 15px;">${req.body.order.customer.city}</td>
+                                                      </tr>
+                                                      <tr>
+                                                          <td style="padding: 0 15px 5px 0;">Código postal</td>
+                                                          <td style="padding: 0 15px;">${req.body.order.customer.zip}</td>
+                                                      </tr>
+                                                      <tr>
+                                                          <td style="padding: 0 15px 5px 0;">Email</td>
+                                                          <td style="padding: 0 15px;">${req.body.order.customer.email}</td>
+                                                      </tr>
+                                                      <tr>
+                                                          <td style="padding: 0 15px 5px 0;">Teléfono</td>
+                                                          <td style="padding: 0 15px;">${req.body.order.customer.phone}</td>
+                                                      </tr>
+                                                      <tr style="border-bottom:2px solid #ecedee;text-align:left;padding:15px 0;">
+                                                          
+                                                      </tr>
+                                                  </table>
+      
+                                              </td>
+                                          </tr>
+      
+                                          <tr>
+                                              <td align="center" style="font-size:0px;padding:10px 25px;padding-top:30px;padding-bottom:50px;word-break:break-word;">
+                                                  <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:separate;line-height:100%;">
+                                                      <tr>
+                                                          <td align="center" bgcolor="#2F67F6" role="presentation" style="border:none;border-radius:3px;color:#ffffff;cursor:auto;padding:15px 25px;" valign="middle">
+                                                              <p style="background:#2F67F6;color:#ffffff;font-family:'Helvetica Neue',Arial,sans-serif;font-size:15px;font-weight:normal;line-height:120%;Margin:0;text-decoration:none;text-transform:none;">
+                                                                  <a href="http://chinita.com.ar/account/orders/order/${req.body.order.id}" target="_blank" style="color:#fff; text-decoration:none">
+                                                                      Ver detalle de la orden
+                                                                  </a>
+                                                              </p>
+                                                          </td>
+                                                      </tr>
+                                                  </table>
+                                              </td>
+                                          </tr>
+      
+                                          <!-- <tr>
+                                              <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                                                  <div style="font-family:'Helvetica Neue',Arial,sans-serif;font-size:14px;line-height:20px;text-align:left;color:#525252;">
+                                                      Atentamente,<br><br> Capasso Elias<br>Programador de sistemas<br>
+                                                      <a href="https://www.htmlemailtemplates.net" style="color:#2F67F6">htmlemailtemplates.net</a>
+                                                  </div>
+                                              </td>
+                                          </tr> -->
+                                      </table>
+                                  </div>
+                              </td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+      </body>
+      </html>`,
     },
     (error, info) => {
       if (error) {
