@@ -42,8 +42,7 @@ app.post("/api/checkout", (req, res) => {
 
   let preference = {
     back_urls: {
-      success:
-        "https://chinita.com.ar/order-complete/complete",
+      success: "https://chinita.com.ar/order-complete/complete",
       failure: "https://chinita.com.ar/inicio",
       pending: "https://chinita.com.ar/order-complete/pending",
     },
@@ -112,6 +111,8 @@ function parse(x) {
 
 ///// EMAIL ///////
 app.post("/api/send-email", (req, res) => {
+  console.log(req);
+
   var transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 465,
@@ -331,6 +332,8 @@ app.post("/api/send-email", (req, res) => {
     },
     (error) => {
       if (error) {
+        console.log(error);
+        console.log(error.message);
         res.status(500).send(error.message);
       } else {
         console.log("Email enviado!");
