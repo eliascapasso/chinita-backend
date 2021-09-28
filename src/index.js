@@ -43,9 +43,9 @@ app.post("/api/checkout", (req, res) => {
   let preference = {
     back_urls: {
       success:
-        "https://tienda-online-base.web.app:4200/order-complete/complete",
-      failure: "https://tienda-online-base.web.app:4200/inicio",
-      pending: "https://tienda-online-base.web.app:4200/order-complete/pending",
+        "https://chinita.com.ar/order-complete/complete",
+      failure: "https://chinita.com.ar/inicio",
+      pending: "https://chinita.com.ar/order-complete/pending",
     },
     //auto_return: "approved",
     payer: {
@@ -124,7 +124,7 @@ app.post("/api/send-email", (req, res) => {
 
   transporter.sendMail(
     {
-      from: '"Tienda virtual 👻" <chinita.desarrollo@gmail.com>', // sender address
+      from: '"Chinita 🛍️" <chinita.desarrollo@gmail.com>', // sender address
       to: "elias_capasso@live.com", // list of receivers
       subject: "Nueva compra recibida ✔", // Subject line
       html: `<!doctype html>
