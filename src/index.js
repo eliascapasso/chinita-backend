@@ -150,7 +150,7 @@ app.post("/api/send-email", (req, res) => {
   transporter.sendMail(
     {
       from: '"Chinita 🛍️" <chinita.desarrollo@gmail.com>', // sender address
-      to: `capassoelias@gmail.com, ${req.body.order.customer.email}`, // list of receivers
+      to: `yamiluchita@gmail.com, yamila996@hotmail.com, ${req.body.order.customer.email}`, // list of receivers
       subject: "Compra realizada ✔", // Subject line
       html: `<!doctype html>
       <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
