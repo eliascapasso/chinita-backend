@@ -91,6 +91,7 @@ app.post("/api/checkout", (req, res) => {
       console.log(error);
       console.log(error.message);
 
+      res.set("Content-Type", "text/html");
       res.set("Content-Type", "application/json");
       res.send(JSON.stringify(error.message));
     });
@@ -111,8 +112,6 @@ function parse(x) {
 
 ///// EMAIL ///////
 app.post("/api/send-email", (req, res) => {
-  console.log(req);
-
   var transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 465,
@@ -123,11 +122,36 @@ app.post("/api/send-email", (req, res) => {
     },
   });
 
+  var total = req.body.order.total + req.body.order.shippingCost;
+
+  var itemsHTML = ``;
+  for(var i = 0; i < req.body.order.items.length; i++){
+    itemsHTML = itemsHTML + `
+    <tr>
+    <td style="padding: 5px 15px 5px 0;">Nombre</td>
+    <td style="padding: 0 15px;">${req.body.order.items[i].product.name}</td>
+    </tr>
+    <tr>
+    <td style="padding: 5px 15px 5px 0;">Descripción</td>
+    <td style="padding: 0 15px;">${req.body.order.items[i].product.description}</td>
+    </tr>
+    <tr>
+    <td style="padding: 0 15px 5px 0;">Precio unitario</td>
+    <td style="padding: 0 15px;">$${req.body.order.items[i].product.price}</td>
+    </tr>
+    <tr>
+    <td style="padding: 0 15px 5px 0;">Cantidad</td>
+    <td style="padding: 0 15px;">${req.body.order.items[i].amount}</td>
+    </tr>
+    <tr style="border-bottom:2px solid #ecedee;text-align:left;padding:15px 0;">
+    </tr>`;
+  }
+  
   transporter.sendMail(
     {
       from: '"Chinita 🛍️" <chinita.desarrollo@gmail.com>', // sender address
-      to: "elias_capasso@live.com", // list of receivers
-      subject: "Nueva compra recibida ✔", // Subject line
+      to: `capassoelias@gmail.com, ${req.body.order.customer.email}`, // list of receivers
+      subject: "Compra realizada ✔", // Subject line
       html: `<!doctype html>
       <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
       <head>
@@ -246,11 +270,68 @@ app.post("/api/send-email", (req, res) => {
                                           <tr>
                                               <td align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;">
                                                   <div style="font-family:'Helvetica Neue',Arial,sans-serif;font-size:24px;font-weight:bold;line-height:22px;text-align:center;color:#525252;">
-                                                      Recibiste una nueva compra
+                                                    Compra realizada
                                                   </div>
                                               </td>
                                           </tr>
       
+                                          <!-- Datos de la orden -->
+                                          <tr>
+                                              <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+      
+                                                  <table 0="[object Object]" 1="[object Object]" 2="[object Object]" border="0" style="cellspacing:0;color:#000;font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;line-height:22px;table-layout:auto;width:100%;">
+                                                      <tr style="border-bottom:1px solid #ecedee;text-align:left;">
+                                                          <th style="padding: 0 15px 10px 0;">Datos de la orden</th>
+                                                          <th style="padding: 0 15px;"></th>
+                                                      </tr>
+                                                      <tr>
+                                                          <td style="padding: 5px 15px 5px 0;">Número orden</td>
+                                                          <td style="padding: 0 15px;">${req.body.order.number}</td>
+                                                      </tr>
+                                                      <tr>
+                                                          <td style="padding: 5px 15px 5px 0;">Fecha de compra</td>
+                                                          <td style="padding: 0 15px;">${req.body.order.date}</td>
+                                                      </tr>
+                                                      <tr>
+                                                          <td style="padding: 0 15px 5px 0;">Medio de pago</td>
+                                                          <td style="padding: 0 15px;">${req.body.medioPago}</td>
+                                                      </tr>
+                                                      <tr>
+                                                          <td style="padding: 0 15px 5px 0;">Subtotal</td>
+                                                          <td style="padding: 0 15px;">$${req.body.order.total}</td>
+                                                      </tr>
+                                                      <tr>
+                                                          <td style="padding: 0 15px 5px 0;">Costo de envío</td>
+                                                          <td style="padding: 0 15px;">$${req.body.order.shippingCost}</td>
+                                                      </tr>
+                                                      <tr>
+                                                          <td style="padding: 0 15px 5px 0;">Total orden</td>
+                                                          <td style="padding: 0 15px;">$${total}</td>
+                                                      </tr>
+                                                      <tr style="border-bottom:2px solid #ecedee;text-align:left;padding:15px 0;">
+                                                          
+                                                      </tr>
+                                                  </table>
+      
+                                              </td>
+                                          </tr>
+      
+                                          <!-- Items -->
+                                          <tr>
+                                              <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+      
+                                                  <table 0="[object Object]" 1="[object Object]" 2="[object Object]" border="0" style="cellspacing:0;color:#000;font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;line-height:22px;table-layout:auto;width:100%;">
+                                                      <tr style="border-bottom:1px solid #ecedee;text-align:left;">
+                                                          <th style="padding: 0 15px 10px 0;">Items</th>
+                                                          <th style="padding: 0 15px;"></th>
+                                                      </tr>
+                                                      ${itemsHTML}
+                                                  </table>
+      
+                                              </td>
+                                          </tr>
+      
+                                          <!-- Datos del cliente -->
                                           <tr>
                                               <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
       
@@ -280,12 +361,22 @@ app.post("/api/send-email", (req, res) => {
                                                           <td style="padding: 0 15px;">${req.body.order.customer.zip}</td>
                                                       </tr>
                                                       <tr>
-                                                          <td style="padding: 0 15px 5px 0;">Email</td>
-                                                          <td style="padding: 0 15px;">${req.body.order.customer.email}</td>
+                                                          <td style="padding: 0 15px 5px 0;">Correo</td>
+                                                          <td style="padding: 0 15px;">
+                                                              <a class="hidden-md-down"
+                                                                  [href]="'mailto:' + ${req.body.order.customer.email}">
+                                                                  ${req.body.order.customer.email}
+                                                              </a>
+                                                          </td>
                                                       </tr>
                                                       <tr>
                                                           <td style="padding: 0 15px 5px 0;">Teléfono</td>
-                                                          <td style="padding: 0 15px;">${req.body.order.customer.phone}</td>
+                                                          <td style="padding: 0 15px;">
+                                                              <a class="hidden-md-down"
+                                                                  [href]="'tel:' + ${req.body.order.customer.phone}">
+                                                                  ${req.body.order.customer.phone}
+                                                              </a>
+                                                          </td>
                                                       </tr>
                                                       <tr style="border-bottom:2px solid #ecedee;text-align:left;padding:15px 0;">
                                                           
@@ -301,8 +392,8 @@ app.post("/api/send-email", (req, res) => {
                                                       <tr>
                                                           <td align="center" bgcolor="#2F67F6" role="presentation" style="border:none;border-radius:3px;color:#ffffff;cursor:auto;padding:15px 25px;" valign="middle">
                                                               <p style="background:#2F67F6;color:#ffffff;font-family:'Helvetica Neue',Arial,sans-serif;font-size:15px;font-weight:normal;line-height:120%;Margin:0;text-decoration:none;text-transform:none;">
-                                                                  <a href="http://chinita.com.ar/account/orders/order/${req.body.order.id}" target="_blank" style="color:#fff; text-decoration:none">
-                                                                      Ver detalle de la orden
+                                                                  <a href="http://chinita.com.ar" target="_blank" style="color:#fff; text-decoration:none">
+                                                                      Ir a la tienda
                                                                   </a>
                                                               </p>
                                                           </td>
@@ -310,15 +401,6 @@ app.post("/api/send-email", (req, res) => {
                                                   </table>
                                               </td>
                                           </tr>
-      
-                                          <!-- <tr>
-                                              <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                                                  <div style="font-family:'Helvetica Neue',Arial,sans-serif;font-size:14px;line-height:20px;text-align:left;color:#525252;">
-                                                      Atentamente,<br><br> Capasso Elias<br>Programador de sistemas<br>
-                                                      <a href="https://www.htmlemailtemplates.net" style="color:#2F67F6">htmlemailtemplates.net</a>
-                                                  </div>
-                                              </td>
-                                          </tr> -->
                                       </table>
                                   </div>
                               </td>
@@ -334,9 +416,13 @@ app.post("/api/send-email", (req, res) => {
       if (error) {
         console.log(error);
         console.log(error.message);
-        res.status(500).send(error.message);
+        res.set("Content-Type", "text/html");
+        res.set("Content-Type", "application/json");
+        res.send(error.message);
       } else {
         console.log("Email enviado!");
+        res.set("Content-Type", "text/html");
+        res.set("Content-Type", "application/json");
         res.send(true);
       }
     }
