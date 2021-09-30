@@ -140,17 +140,23 @@ app.post("/api/send-email", (req, res) => {
     <td style="padding: 0 15px;">$${req.body.order.items[i].product.price}</td>
     </tr>
     <tr>
+    <td style="padding: 0 15px 5px 0;">Talle</td>
+    <td style="padding: 0 15px;">${req.body.order.items[i].size}</td>
+    </tr>
+    <tr>
     <td style="padding: 0 15px 5px 0;">Cantidad</td>
     <td style="padding: 0 15px;">${req.body.order.items[i].amount}</td>
     </tr>
     <tr style="border-bottom:2px solid #ecedee;text-align:left;padding:15px 0;">
     </tr>`;
   }
+
+  var emailCliente = 'yamiluchita@gmail.com, yamila996@hotmail.com';
   
   transporter.sendMail(
     {
       from: '"Chinita 🛍️" <chinita.desarrollo@gmail.com>', // sender address
-      to: `yamiluchita@gmail.com, yamila996@hotmail.com, ${req.body.order.customer.email}`, // list of receivers
+      to: `${emailCliente}, ${req.body.order.customer.email}`, // list of receivers
       subject: "Compra realizada ✔", // Subject line
       html: `<!doctype html>
       <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
