@@ -76,6 +76,16 @@ app.post("/api/checkout", (req, res) => {
     preference.items.push(item);
   }
 
+  let surcharge = {
+    id: 1,
+    title: "Recargo por servicio",
+    description: "",
+    unit_price: req.body.surcharge,
+    quantity: 1,
+    currency_id: "ARS",
+  };
+  preference.items.push(surcharge);
+
   console.log("PREFERENCE-FIREBASE", preference);
 
   return mercadopago.preferences
@@ -122,11 +132,13 @@ app.post("/api/send-email", (req, res) => {
     },
   });
 
-  var total = req.body.order.total + req.body.order.shippingCost;
+  var total = req.body.order.total + req.body.order.shippingCost + req.body.order.surcharge;
 
   var itemsHTML = ``;
-  for(var i = 0; i < req.body.order.items.length; i++){
-    itemsHTML = itemsHTML + `
+  for (var i = 0; i < req.body.order.items.length; i++) {
+    itemsHTML =
+      itemsHTML +
+      `
     <tr>
     <td style="padding: 5px 15px 5px 0;">Nombre</td>
     <td style="padding: 0 15px;">${req.body.order.items[i].product.name}</td>
@@ -150,13 +162,24 @@ app.post("/api/send-email", (req, res) => {
     <tr style="border-bottom:2px solid #ecedee;text-align:left;padding:15px 0;">
     </tr>`;
   }
-
-  var emailCliente = 'yamiluchita@gmail.com, yamila996@hotmail.com';
   
+  var recargoHTML = `
+  <tr>
+  <td style="padding: 5px 15px 5px 0;">Porcentaje</td>
+  <td style="padding: 0 15px;">${(req.body.order.surcharge / (total - req.body.order.surcharge)) * 100}%</td>
+  </tr>
+  <tr>
+  <td style="padding: 5px 15px 5px 0;">Recargo</td>
+  <td style="padding: 0 15px;">$${req.body.order.surcharge}</td>
+  </tr>`;
+
+  var emailVendedor = "yamiluchita@gmail.com, yamila996@hotmail.com";
+  var emailComprador = req.body.order.customer.email;
+
   transporter.sendMail(
     {
       from: '"Chinita 🛍️" <chinita.desarrollo@gmail.com>', // sender address
-      to: `${emailCliente}, ${req.body.order.customer.email}`, // list of receivers
+      to: `${emailVendedor}`, // list of receivers
       subject: "Compra realizada ✔", // Subject line
       html: `<!doctype html>
       <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
@@ -311,6 +334,10 @@ app.post("/api/send-email", (req, res) => {
                                                           <td style="padding: 0 15px;">$${req.body.order.shippingCost}</td>
                                                       </tr>
                                                       <tr>
+                                                          <td style="padding: 0 15px 5px 0;">Recargo del servicio</td>
+                                                          <td style="padding: 0 15px;">$${req.body.order.surcharge}</td>
+                                                      </tr>
+                                                      <tr>
                                                           <td style="padding: 0 15px 5px 0;">Total orden</td>
                                                           <td style="padding: 0 15px;">$${total}</td>
                                                       </tr>
@@ -332,6 +359,21 @@ app.post("/api/send-email", (req, res) => {
                                                           <th style="padding: 0 15px;"></th>
                                                       </tr>
                                                       ${itemsHTML}
+                                                  </table>
+      
+                                              </td>
+                                          </tr>
+
+                                          <!-- Recargo -->
+                                          <tr>
+                                              <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+      
+                                                  <table 0="[object Object]" 1="[object Object]" 2="[object Object]" border="0" style="cellspacing:0;color:#000;font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;line-height:22px;table-layout:auto;width:100%;">
+                                                      <tr style="border-bottom:1px solid #ecedee;text-align:left;">
+                                                          <th style="padding: 0 15px 10px 0;">Recargo por servicio</th>
+                                                          <th style="padding: 0 15px;"></th>
+                                                      </tr>
+                                                      ${recargoHTML}
                                                   </table>
       
                                               </td>

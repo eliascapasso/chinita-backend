@@ -151,6 +151,10 @@
                                                     <td style="padding: 0 15px;">$${req.body.order.shippingCost}</td>
                                                 </tr>
                                                 <tr>
+                                                    <td style="padding: 0 15px 5px 0;">Recargo del servicio</td>
+                                                    <td style="padding: 0 15px;">$${req.body.order.surcharge}</td>
+                                                </tr>
+                                                <tr>
                                                     <td style="padding: 0 15px 5px 0;">Total orden</td>
                                                     <td style="padding: 0 15px;">$${total}</td>
                                                 </tr>
@@ -172,6 +176,21 @@
                                                     <th style="padding: 0 15px;"></th>
                                                 </tr>
                                                 ${itemsHTML}
+                                            </table>
+
+                                        </td>
+                                    </tr>
+
+                                    <!-- Recargo -->
+                                    <tr>
+                                        <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+
+                                            <table 0="[object Object]" 1="[object Object]" 2="[object Object]" border="0" style="cellspacing:0;color:#000;font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;line-height:22px;table-layout:auto;width:100%;">
+                                                <tr style="border-bottom:1px solid #ecedee;text-align:left;">
+                                                    <th style="padding: 0 15px 10px 0;">Recargo por servicio</th>
+                                                    <th style="padding: 0 15px;"></th>
+                                                </tr>
+                                                ${recargoHTML}
                                             </table>
 
                                         </td>
